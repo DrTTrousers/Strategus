@@ -88,6 +88,8 @@ runModule <- function(analysisSpecifications, keyringSettings, moduleIndex, exec
 
       options(andromedaTempFolder = file.path(jobContext$moduleExecutionSettings$workFolder, 'andromedaTemp'))
 
+      options(tempEmulationSchema = jobContext$moduleExecutionSettings$tempEmulationSchema)
+
        if (Sys.getenv('FORCE_RENV_USE', '') == 'TRUE') {
          renv::use(lockfile = 'renv.lock')
        }

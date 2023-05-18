@@ -53,6 +53,17 @@ execute <- function(analysisSpecifications,
   checkmate::assertChoice(x = keyringName, choices = keyringList$keyring, null.ok = TRUE, add = errorMessages)
   checkmate::reportAssertions(collection = errorMessages)
 
+  # Assert that the temp emulation schema is set if required for the dbms
+  # specified by the executionSettings
+  connectionDetails <- retrieveConnectionDetails(
+    connectionDetailsReference = executionSettings$connectionDetailsReference,
+    keyringName = keyringName
+  )
+  DatabaseConnector::assertTempEmulationSchemaSet(
+    dbms = connectionDetails$dbms,
+    tempEmulationSchema = getOption("sqlRenderTempEmulationSchema")
+  )
+
   modules <- ensureAllModulesInstantiated(analysisSpecifications)
 
   if (is.null(executionScriptFolder)) {

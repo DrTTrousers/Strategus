@@ -181,7 +181,7 @@ generateTargetsScript <- function(analysisSpecifications, executionSettings, dep
 
   dependenciesFileName <- gsub("\\\\", "/", file.path(executionScriptFolder, "dependencies.rds"))
   saveRDS(dependencies, dependenciesFileName)
-
+  
   execResultsUpload <- all(c(is(executionSettings, "CdmExecutionSettings"),
                              !is.null(executionSettings$resultsConnectionDetailsReference),
                              !is.null(executionSettings$resultsDatabaseSchema)))
